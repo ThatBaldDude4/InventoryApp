@@ -1,9 +1,9 @@
 import { Router } from "express";
 const indexRouter = Router();
 
-indexRouter.get("/", (req, res) => {
-    res.send("<h1>Select Category page</h1>");
-});
+import { getCategories } from "../controllers/indexController.js";
+
+indexRouter.get("/", getCategories);
 
 indexRouter.get("/home", (req, res) => {
     res.send("<h1>Home page</h1>")

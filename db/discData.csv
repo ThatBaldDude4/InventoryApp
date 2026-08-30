@@ -1,0 +1,61 @@
+item,brand,disc_type,category,quantity,price,description
+Fox-Star,Innova,mid-range,disc,20,17.99,Bright yellow disc with a fox stamp
+Mamba,Innova,distance-driver,disc,24,14.99,Red disc with a snake stamp
+Destroyer,Innova,distance-driver,disc,13,22.99,Black and white disc with an astronaut stamp
+Tern,Innova,distance-driver,disc,34,15.99,Red disc with a bird stamp
+Time-Lapse,Axiom Discs,distance-driver,disc,12,14.99,Red and green disc with a plain text stamp
+Pixel,Axiom Discs,putter,disc,2,14.99,Purple and green disc with a checkerboard stamp
+Orbit-Fang,Axiom Discs,fairway-driver,disc,18,18.99,Blue disc with a silver fang stamp
+Neon-Core,Axiom Discs,mid-range,disc,25,16.99,Green disc with a geometric stamp
+Driftwood,Latitude 64,fairway-driver,disc,17,19.99,Orange disc with a tree stamp
+Northwind,Latitude 64,distance-driver,disc,9,21.99,White disc with a blue wind stamp
+Anchor,Latitude 64,mid-range,disc,31,17.49,Blue disc with a simple anchor stamp
+Pebble,Latitude 64,putter,disc,28,13.99,Gray disc with a small stone stamp
+Firebird-X,Westside Discs,fairway-driver,disc,15,20.99,Red disc with a flaming bird stamp
+Crown,Westside Discs,putter,disc,22,15.49,Gold disc with a crown stamp
+Voyager,Westside Discs,distance-driver,disc,11,18.99,Purple disc with a sailing ship stamp
+Ironwood,Westside Discs,mid-range,disc,19,16.49,Brown disc with a tree stamp
+Raptor-X,Discraft,fairway-driver,disc,26,19.99,Green disc with a raptor stamp
+Comet-X,Discraft,mid-range,disc,33,16.99,White disc with a comet stamp
+Surge-X,Discraft,distance-driver,disc,8,22.49,Blue disc with a lightning stamp
+Soft-Line,Discraft,putter,disc,37,14.49,Pink disc with a minimal circle stamp
+Thunderclaw,MVP,distance-driver,disc,14,21.99,Black disc with a lightning claw stamp
+Circuit,MVP,mid-range,disc,23,18.49,Yellow disc with an electronic circuit stamp
+Vector-X,MVP,fairway-driver,disc,16,19.49,Blue disc with an arrow stamp
+Ion-X,MVP,putter,disc,29,15.99,White disc with a glowing ring stamp
+Nightfall,Dynamic Discs,distance-driver,disc,10,20.99,Dark purple disc with a moon stamp
+Sheriff-X,Dynamic Discs,distance-driver,disc,12,21.49,Orange disc with a western badge stamp
+Patrol-X,Dynamic Discs,fairway-driver,disc,27,18.99,Green disc with a shield stamp
+Justice-X,Dynamic Discs,mid-range,disc,18,17.99,Red disc with a scale stamp
+Deputy-X,Dynamic Discs,putter,disc,35,14.99,Blue disc with a star badge stamp
+Storm-Pike,Kastaplast,distance-driver,disc,7,23.99,Gray disc with a storm cloud stamp
+Glow-Reef,Kastaplast,mid-range,disc,20,19.99,Glow plastic disc with a coral stamp
+Frost-Line,Kastaplast,fairway-driver,disc,15,20.49,Light blue disc with an ice stamp
+Stone-K1,Kastaplast,putter,disc,30,17.99,White disc with a stone texture stamp
+Solar-Flare,Prodigy,distance-driver,disc,13,19.99,Orange disc with a sun flare stamp
+Falcon-X,Prodigy,fairway-driver,disc,22,18.49,Red disc with a falcon stamp
+Core-M4,Prodigy,mid-range,disc,28,16.99,Green disc with a circular stamp
+P-Ace,Prodigy,putter,disc,40,13.99,Blue disc with a playing card stamp
+Black-Hole,Gateway,distance-driver,disc,6,18.99,Black disc with a galaxy stamp
+Speeder,Gateway,fairway-driver,disc,14,17.99,Yellow disc with a racing stripe stamp
+Element-X,Gateway,mid-range,disc,21,15.99,Purple disc with an elemental stamp
+Wizard-X,Gateway,putter,disc,32,12.99,Red disc with a wizard hat stamp
+Meteorite,Thought Space Athletics,mid-range,disc,17,21.99,Black disc with a meteor stamp
+Dreamscape,Thought Space Athletics,fairway-driver,disc,11,22.99,Blue disc with an abstract landscape stamp
+Cosmic-Ray,Thought Space Athletics,distance-driver,disc,8,23.49,Purple disc with a space beam stamp
+Temple,Thought Space Athletics,putter,disc,24,18.99,White disc with a temple stamp
+Redwood,Clash Discs,fairway-driver,disc,19,20.99,Dark red disc with a tree stamp
+Berry-X,Clash Discs,mid-range,disc,26,19.49,Pink disc with a berry stamp
+Wild-Honey,Clash Discs,distance-driver,disc,10,21.99,Yellow disc with a honeycomb stamp
+Popcorn-X,Clash Discs,putter,disc,36,15.99,White disc with a popcorn stamp
+Void-Runner,Lone Star Disc,distance-driver,disc,12,19.99,Black disc with a starfield stamp
+Texas-Wind,Lone Star Disc,fairway-driver,disc,18,18.49,Blue disc with a windmill stamp
+Copperhead,Lone Star Disc,mid-range,disc,20,17.49,Copper disc with a snake stamp
+Jackrabbit,Lone Star Disc,putter,disc,31,14.49,Gray disc with a rabbit stamp
+Trail-Pack,Grip Equipment,,bag,8,119.99,Compact black disc golf backpack
+Summit-Pack,Grip Equipment,,bag,5,169.99,Large gray tournament disc golf backpack
+Course-Bag,Dynamic Discs,,bag,14,59.99,Lightweight blue shoulder bag
+Starter-Bag,Innova,,bag,21,34.99,Small red beginner disc golf bag
+Mini-Marker,Innova,,accessory,45,4.99,Small plastic marker disc
+Dry-Towel,Dynamic Discs,,accessory,38,9.99,Microfiber towel for wet discs
+Retriever-12,Discraft,,accessory,16,29.99,Telescoping disc retrieval pole

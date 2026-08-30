@@ -15,7 +15,13 @@ const connectionString = process.env.MSG_URL || `postgresql://${USER}:${PASSWORD
 const ITEMS_SQL = `
     CREATE TABLE IF NOT EXISTS items (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        item VARCHAR(255)
+        item VARCHAR(255),
+        brand INTEGER REFERENCES brands(id),
+        disc_type INTEGER REFERENCES disc_type(id),
+        category INTEGER REFERENCES categories(id),
+        quantity INTEGER,
+        price INTEGER,
+        description VARCHAR(255)
     );
 `;
 
@@ -41,6 +47,17 @@ const BRAND_SQL = `
     ON CONFLICT DO NOTHING;
 `;
 
+const CATEGORIES_SQL = `
+    CREATE TABLE IF NOT EXISTS categories (
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        category VARCHAR(255) UNIQUE
+    );
+
+    INSERT INTO categories (category)
+    VALUES ('DISCS'), ('BAGS'), ('ACCESSORIES')
+    ON CONFLICT DO NOTHING;
+`;
+
 async function main() {
     console.log("seeding");
     const client = new Client({
@@ -50,6 +67,7 @@ async function main() {
     await client.query(ITEMS_SQL);
     await client.query(DISC_TYPE_SQL);
     await client.query(BRAND_SQL);
+    await client.query(CATEGORIES_SQL);
     await client.end();
     console.log("done");
 };

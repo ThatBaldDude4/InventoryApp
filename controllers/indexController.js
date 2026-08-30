@@ -1,8 +1,10 @@
-import pool from "../db/pool.js";
+import { getAllCategories } from "../db/queries.js";
+
+// These are controllers for processing requests for index routes
 
 const getCategories = async (req, res) => {
     try {
-        const { rows } = await pool.query('SELECT * FROM disc_type;');
+        const rows = await getAllCategories();
         res.render("categories", {rows});
     } catch (err) {
         console.error(err);

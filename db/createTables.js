@@ -20,7 +20,7 @@ const ITEMS_SQL = `
         disc_type INTEGER REFERENCES disc_type(id),
         category INTEGER REFERENCES categories(id),
         quantity INTEGER,
-        price INTEGER,
+        price NUMERIC(10, 2),
         description VARCHAR(255)
     );
 `;
@@ -30,10 +30,6 @@ const DISC_TYPE_SQL = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         disc_type VARCHAR(255) UNIQUE
     );
-
-    INSERT INTO disc_type (disc_type)
-    VALUES ('putter'), ('mid-range'), ('fairway-driver'), ('distance-driver')
-    ON CONFLICT DO NOTHING;
 `;
 
 const BRAND_SQL = `
@@ -41,10 +37,6 @@ const BRAND_SQL = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         brand VARCHAR(255) UNIQUE
     );
-
-    INSERT INTO brands (brand)
-    VALUES ('Axiom Discs'), ('Discraft'), ('Latitude 64')
-    ON CONFLICT DO NOTHING;
 `;
 
 const CATEGORIES_SQL = `
@@ -52,24 +44,22 @@ const CATEGORIES_SQL = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         category VARCHAR(255) UNIQUE
     );
-
-    INSERT INTO categories (category)
-    VALUES ('DISCS'), ('BAGS'), ('ACCESSORIES')
-    ON CONFLICT DO NOTHING;
 `;
 
-async function main() {
-    console.log("seeding");
+async function createTables() {
+    console.log("creating tables...");
     const client = new Client({
         connectionString: connectionString,
     });
     await client.connect();
-    await client.query(ITEMS_SQL);
     await client.query(DISC_TYPE_SQL);
     await client.query(BRAND_SQL);
     await client.query(CATEGORIES_SQL);
+    await client.query(ITEMS_SQL);
     await client.end();
     console.log("done");
 };
 
-main();
+export {
+    createTables
+}

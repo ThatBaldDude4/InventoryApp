@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { getProductController } from "../controllers/productsController.js";
+import { 
+    getProductController,
+    getProductFormController 
+} from "../controllers/productsController.js";
 const productsRouter = Router();
 
 // need to preserve users selected category
@@ -8,9 +11,7 @@ const productsRouter = Router();
 
 productsRouter.get("/:id", getProductController);
 
-productsRouter.get("/:id/edit", (req, res) => {
-    res.send("<h1>Edit single product</h1>");
-});
+productsRouter.get("/:id/edit", getProductFormController);
 
 productsRouter.post("/:id/edit", (req, res) => {
     // update data

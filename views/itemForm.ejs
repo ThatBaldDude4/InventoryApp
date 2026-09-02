@@ -7,34 +7,36 @@
 </head>
 <body>
     <form method="POST" action="/products/<%= rows?.id %>/edit">
+        <h1>Edit Item Form</h1>
         <label>
             Item:
-            <input name="item" id="item-input" value="<%= rows?.item || ''">
+            <input name="item" id="item-input" value="<%= rows?.item || '' %>">
         </label>
         <label>
             Description:
-            <input name="description" id="description-input" value="<%= rows?.description || ''">
+            <input name="description" id="description-input" value="<%= rows?.description || ''%>">
         </label>
         <label>
             Brand:
-            <input name="brand" id="brand-input" value="<%= rows?.brand || ''">
+            <input name="brand" id="brand-input" value="<%= rows?.brand || ''%>">
         </label>
         <label>
             Category:
-            <input name="category" id="category-input" value="<%= rows?.category || ''">
+            <input name="category" id="category-input" value="<%= rows?.category || ''%>">
         </label>
         <label>
             Quantity:
-            <input name="quantity" id="quantity-input" value="<%= rows?.quantity || ''">
+            <input name="quantity" id="quantity-input" value="<%= rows?.quantity || ''%>">
         </label>
         <label>
             Price:
-            <input name="price" id="price-input" value="<%= rows?.price || ''">
+            <input name="price" id="price-input" value="<%= rows?.price || ''%>">
         </label>
         <label>
             Disc Type:
-            <input name="category" id="category-input" value="<%= rows?.category || ''">
+            <input name="category" id="category-input" value="<%= rows?.category || ''%>">
         </label>
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>

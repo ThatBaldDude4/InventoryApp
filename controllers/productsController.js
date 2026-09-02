@@ -10,6 +10,18 @@ const getProductController = async (req, res) => {
     }
 }
 
+const getProductFormController = async (req, res) => {
+    try {
+        const id = Number(req.params?.id);
+        const rows = await getItemFromId(id);
+        console.log(rows);
+        // form should take single item
+        res.render("itemForm", {rows: rows[0]});
+    }catch(err) {
+        
+    }
+}
+
 const postProductController = async (req, res) => {
     try {
         const id = req.query.id;
@@ -21,5 +33,6 @@ const postProductController = async (req, res) => {
 }
 
 export {
-    getProductController
+    getProductController,
+    getProductFormController
 }

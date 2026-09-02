@@ -1,14 +1,23 @@
-import pool from "./pool.js"
+import pool from "./pool.js";
 
 async function getItemsFromCategory(category) {
     const SQL = `
         SELECT * FROM items AS i
-        WHERE i.categories_id IN (
+        WHERE i.category_id IN (
             SELECT c.id FROM categories AS c
             WHERE c.category = $1
         );
     `
-    const { rows } = await pool.query(SQL);
+    const { rows } = await pool.query(SQL, [category]);
+    return rows;
+}
+
+async function getItemFromId(id) {
+    const SQL = `
+        SELECT * FROM items
+        WHERE id = $1;
+    `
+    const { rows } = await pool.query(SQL, [id])
     return rows;
 }
 
@@ -18,7 +27,7 @@ async function getAllBrands() {
 }
 
 async function insertBrand(brand) {
-    let {rows} = await pool.query('INSERT INTO brands (brand) VALUES ($1) RETURNING id', [brand]);
+    let {rows} = await pool.query('INSERT INTO brands (brand) VALUES ($1) RETURNING id;', [brand]);
     return rows[0].id;
 }
 
@@ -28,25 +37,25 @@ async function getAllCategories() {
 }
 
 async function insertCategory(category) {
-    let {rows} = await pool.query('INSERT INTO categories (category) VALUES ($1) RETURNING id', [category]);
+    let {rows} = await pool.query('INSERT INTO categories (category) VALUES ($1) RETURNING id;', [category]);
     return rows[0].id;
 }
 
 async function insertItem(item) {
     const SQL = `
-        INSERT INTO items (item, brand, disc_type, category, quantity, price, description)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        INSERT INTO items (item, brand_id, disc_type_id, category_id, quantity, price, description)
+        VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
     await pool.query(SQL, [item.item, item.brand, item.disc_type, item.category, item.quantity, item.price, item.description])
 }
 
 async function getAllDiscTypes() {
-    let { rows } = await pool.query(`SELECT * FROM disc_type`);
+    let { rows } = await pool.query(`SELECT * FROM disc_type;`);
     return rows;
 }
 
 async function insertDiscType(type) {
-    let {rows} = await pool.query(`INSERT INTO disc_type (disc_type) VALUES ($1) RETURNING id`, [type]);
+    let {rows} = await pool.query(`INSERT INTO disc_type (disc_type) VALUES ($1) RETURNING id;`, [type]);
     return rows[0].id;
 }
 
@@ -58,5 +67,6 @@ export {
     insertBrand,
     insertItem,
     getAllDiscTypes,
-    insertDiscType
+    insertDiscType,
+    getItemFromId
 }

@@ -1,13 +1,12 @@
 import { Router } from "express";
+import { getProductController } from "../controllers/productsController.js";
 const productsRouter = Router();
 
 // need to preserve users selected category
 // so that when client is redirected to home 
 // page the products are the same
 
-productsRouter.get("/:id", (req, res) => {
-    res.send("<h1>View single product</h1>");
-});
+productsRouter.get("/:id", getProductController);
 
 productsRouter.get("/:id/edit", (req, res) => {
     res.send("<h1>Edit single product</h1>");

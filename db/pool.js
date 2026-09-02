@@ -9,7 +9,6 @@ try {
 const {HOST, PASSWORD, USER, DATABASE, PGPORT} = process.env;
 // MSG_URL expect to be full connectionStr typically supplied from a PaaS
 const connectionString = process.env.MSG_URL || `postgresql://${USER}:${PASSWORD}@${HOST}:${PGPORT}/${DATABASE}`
-console.log(connectionString);
 
 const pool = new Pool({
     connectionString

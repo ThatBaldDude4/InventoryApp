@@ -16,9 +16,9 @@ const ITEMS_SQL = `
     CREATE TABLE IF NOT EXISTS items (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         item VARCHAR(255),
-        brand INTEGER REFERENCES brands(id),
-        disc_type INTEGER REFERENCES disc_type(id),
-        category INTEGER REFERENCES categories(id),
+        brand_id INTEGER REFERENCES brands(id),
+        disc_type_id INTEGER REFERENCES disc_type(id),
+        category_id INTEGER REFERENCES categories(id),
         quantity INTEGER,
         price NUMERIC(10, 2),
         description VARCHAR(255)

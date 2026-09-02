@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Page</title>
+</head>
+<body>
+    <% if (locals.rows) { %>
+        <div>
+            <img alt="product" />
+            <div>
+                <h2><%= rows[0]?.item %></h2>
+                <p><%= rows[0]?.price %></p>
+                <p><%= rows[0]?.description %></p>
+                <a href="/products/<%= rows[0]?.id %>/edit">Edit</a>
+            </div>
+        </div>
+    <% }; %>
+</body>
+</html>

@@ -1,8 +1,8 @@
-import { getAllCategories } from "../db/queries.js";
+import { getAllCategories, getItemsFromCategory } from "../db/queries.js";
 
 // These are controllers for processing requests for index routes
 
-const getCategories = async (req, res) => {
+const getCategoriesController = async (req, res) => {
     try {
         const rows = await getAllCategories();
         res.render("categories", {rows});
@@ -12,6 +12,17 @@ const getCategories = async (req, res) => {
     }
 };
 
+const getHomeController = async (req, res) => {
+    try {
+        const category = req.query?.category;
+        const rows = await getItemsFromCategory(category);
+        res.render("home", {rows})
+    }catch (err) {
+        console.error(err);
+    }
+}
+
 export {
-    getCategories
+    getCategoriesController,
+    getHomeController,
 }

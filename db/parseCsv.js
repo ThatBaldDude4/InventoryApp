@@ -11,10 +11,9 @@ async function processCsv() {
     try {
         for await (const row of parser) {
         // Processes rows sequentially
-        console.log('Processing item:', row);
         parsedData.push(normalizeRow(row));
         }
-        console.log('All rows finished.');
+        console.log('all rows finished.');
     } catch (err) {
         console.error('An error occurred during iteration:', err);
     }
@@ -22,13 +21,17 @@ async function processCsv() {
 }
 
 function normalizeRow(row) {
+    if (row.item === "Retriever-12") {
+        console.log("brand", row.brand);
+    }
     row.brandName = row.brand;
     row.brand = row.brand.replace(/\s+/g, '').toLowerCase();
     row.disc_type = row.disc_type.replace(/\s+/g, '').toLowerCase();
-    row.category = row.category.replace(/\s+/g, '').toLowerCase();
+    row.category = row.category.replace(/\s+/g, '').slice(0, 200).toLowerCase();
     return row;
 }
 
 export {
-    processCsv
+    processCsv,
+    normalizeRow
 }

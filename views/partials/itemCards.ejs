@@ -1,0 +1,18 @@
+<% if (locals.rows) { %>
+    <% rows.forEach(data => { %>
+        <div>
+            <img alt="product" />
+            <div>
+                <h2><%= data?.item %></h2>
+                <p><%= data?.price %></p>
+                <p><%= data?.description %></p>
+                <a href="/products/<%= data?.id %>">Open</a>
+            </div>
+        </div>
+    <% }) %>
+<% }; %>
+<% if (locals.rows.length === 0) { %>
+    <div>
+        <h1>No Data Found</h1>
+    </div>    
+<% }; %>

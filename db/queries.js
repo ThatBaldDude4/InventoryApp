@@ -76,9 +76,10 @@ async function insertCategory(category) {
 async function insertItem(item) {
     const SQL = `
         INSERT INTO items (item, brand_id, disc_type_id, category_id, quantity, price, description)
-        VALUES ($1, $2, $3, $4, $5, $6, $7);
+        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;
     `;
-    await pool.query(SQL, [item.item, item.brand, item.disc_type, item.category, item.quantity, item.price, item.description])
+    let {rows} = await pool.query(SQL, [item.item, item.brand, item.disc_type, item.category, item.quantity, item.price, item.description])
+    return rows[0].id;
 }
 
 async function getAllDiscTypes() {

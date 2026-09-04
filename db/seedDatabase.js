@@ -76,9 +76,8 @@ async function seedData(dat) {
             nRow.description = nRow.description === "" ? null : nRow.description;
             nRow.price = nRow.price === "" ? null : Number(nRow.price);
             nRow.quantity = nRow.quantity === "" ? null : Number(nRow.quantity);
-
+            console.log(nRow);
             await insertItem(nRow);
-            // does this need to be await
             // then after data is all parsed insert into items table
         }
         console.log("seeding successful");
@@ -88,8 +87,8 @@ async function seedData(dat) {
     console.timeEnd("Timer")
 };
 
-// const data = await processCsv();
-// seedData(data);
+const data = await processCsv();
+seedData(data);
 
 
 export {

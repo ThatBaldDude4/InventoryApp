@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { 
     getProductController,
-    getProductFormController 
+    getProductFormController,
+    postProductController 
 } from "../controllers/productsController.js";
 const productsRouter = Router();
 
@@ -13,10 +14,6 @@ productsRouter.get("/:id", getProductController);
 
 productsRouter.get("/:id/edit", getProductFormController);
 
-productsRouter.post("/:id/edit", (req, res) => {
-    // update data
-    // redirect to products home page
-    res.redirect("/home");
-});
+productsRouter.post("/:id/edit", postProductController);
 
 export default productsRouter;

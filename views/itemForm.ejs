@@ -8,6 +8,13 @@
 <body>
     <form method="POST" action="/products/<%= rows?.id %>/edit">
         <h1>Edit Item Form</h1>
+        <% if (locals.errors) { %>
+            <ul>
+                <% errors.forEach(err => { %>
+                    <li><%= err.msg %></li> 
+                <% }); %>
+            </ul>
+        <% }; %>
         <label>
             Item:
             <input name="item" id="item-input" value="<%= rows?.item || '' %>">
@@ -34,7 +41,7 @@
         </label>
         <label>
             Disc Type:
-            <input name="category" id="category-input" value="<%= rows?.category || ''%>">
+            <input name="disc_type" id="disc_type-input" value="<%= rows?.disc_type || ''%>">
         </label>
         <button type="submit">Submit</button>
     </form>

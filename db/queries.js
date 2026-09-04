@@ -14,11 +14,43 @@ async function getItemsFromCategory(category) {
 
 async function getItemFromId(id) {
     const SQL = `
-        SELECT * FROM items
-        WHERE id = $1;
-    `
+        SELECT 
+            brands.brand AS brand, 
+            disc_type.disc_type AS disc_type,
+            categories.category AS category,
+            i.item,
+            i.price,
+            i.description,
+            i.id,
+            i.quantity
+        FROM items as i
+        LEFT JOIN brands
+            ON i.brand_id = brands.id
+        LEFT JOIN disc_type
+            ON i.disc_type_id = disc_type.id
+        LEFT JOIN categories
+            ON i.category_id = categories.id
+        WHERE i.id = $1;
+        
+    `;
     const { rows } = await pool.query(SQL, [id])
     return rows;
+};
+
+async function updateItem({id, brand, disc_type, category, item, quantity, price, description}) {
+    const SQL = `
+        UPDATE items AS i
+        SET 
+            item = $2, 
+            brand_id = $3, 
+            disc_type_id = $4, 
+            category_id = $5,
+            quantity = $6,
+            price = $7,
+            description = $8
+        WHERE i.id = $1;
+    `;
+    await pool.query(SQL, [id, item, brand, disc_type, category, quantity, price, description]);
 }
 
 async function getAllBrands() {
@@ -68,5 +100,6 @@ export {
     insertItem,
     getAllDiscTypes,
     insertDiscType,
-    getItemFromId
+    getItemFromId,
+    updateItem
 }

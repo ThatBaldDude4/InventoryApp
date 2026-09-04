@@ -1,6 +1,6 @@
-import { getItemFromId, updateItem } from "../db/queries.js";
+import { getItemFromId, updateItem, insertItem } from "../db/queries.js";
 import { body, matchedData, validationResult } from "express-validator";
-import { normalizeItem } from "../db/normalizeItemForDb.js";
+import { normalizeItems } from "../db/normalizeItemForDb.js";
 
 
 const lengthErr = "must be between 1 and 255 characters.";
@@ -17,7 +17,7 @@ const validateItem = [
         .optional(),
     body("brand")
         .notEmpty()
-        .withMessage(`Category ${requiredError}`),
+        .withMessage(`Brand ${requiredError}`),
     body("category")
         .notEmpty()
         .withMessage(`Category ${requiredError}`),
@@ -54,27 +54,52 @@ const getProductFormController = async (req, res) => {
 
 const postProductController = [
     validateItem,
-    async (req, res, next) => {
+    async (req, res) => {
         const errors = validationResult(req);
         const id = req.params.id;
         if (!errors.isEmpty()) {
-            // if error grab original data
-            // rerender form
-            const rows = await getItemFromId(id)
             return res.status(400).render("itemForm", {
                 errors: errors.array(),
-                rows: rows,
+                rows: {...req.body, id},
             })
         }
         try {
             
             const {item, description, brand, category, quantity, price, disc_type} = matchedData(req);
-            const nItem = await normalizeItem({id, item, description, brand, category, quantity, price, disc_type});
+            const [nItem] = await normalizeItems([{id, item, description, brand, category, quantity, price, disc_type}]);
             await updateItem(nItem);
             res.redirect(`/products/${id}`)
-            // update data
-            //redirect to
         }catch(err) {
+            console.error(err);
+        }
+    }
+];
+
+const getNewProductController = (req, res) => {
+    res.render("itemForm", {rows: null, category: req.query?.category})
+};
+
+const postNewProduct = [
+    validateItem,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render("itemForm", {
+                errors: errors.array(),
+                rows: {...req.body},
+            });
+        };
+
+        try {
+            const {item, description, brand, category, quantity, price, disc_type} = matchedData(req);
+            const [nItem] = await normalizeItems([{item, description, brand, category, quantity, price, disc_type}]);
+            // insert item
+            // grab item id
+            const newItemId = await insertItem(nItem);
+            console.log(newItemId)
+            res.redirect(`/products/${newItemId}`)
+            
+        }catch (err) {
             console.error(err);
         }
     }
@@ -83,5 +108,7 @@ const postProductController = [
 export {
     getProductController,
     getProductFormController,
-    postProductController
+    postProductController,
+    getNewProductController,
+    postNewProduct
 }

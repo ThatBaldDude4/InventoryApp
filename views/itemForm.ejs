@@ -6,8 +6,10 @@
     <title>Item Form</title>
 </head>
 <body>
-    <form method="POST" action="/products/<%= rows?.id %>/edit">
+    <form method="POST" action="<%= rows?.id ? `/products/${rows.id}/edit` : '/products/new' %>">
         <h1>Edit Item Form</h1>
+        <a href="<%= rows?.id ? `/products/${rows.id}` : `/home?category=${category}` %>">Back</a>
+        
         <% if (locals.errors) { %>
             <ul>
                 <% errors.forEach(err => { %>

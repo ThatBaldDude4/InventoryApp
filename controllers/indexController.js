@@ -16,7 +16,7 @@ const getHomeController = async (req, res) => {
     try {
         const category = req.query?.category;
         const rows = await getItemsFromCategory(category);
-        res.render("home", {rows})
+        res.render("home", {rows, category})
     }catch (err) {
         console.error(err);
     }

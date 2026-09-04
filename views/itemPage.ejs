@@ -14,6 +14,7 @@
                 <p><%= rows[0]?.price %></p>
                 <p><%= rows[0]?.description %></p>
                 <a href="/products/<%= rows[0]?.id %>/edit">Edit</a>
+                <a href="/home?category=<%= rows[0]?.category %>">Back</a>
             </div>
         </div>
     <% }; %>

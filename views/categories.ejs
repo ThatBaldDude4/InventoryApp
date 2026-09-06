@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Categories</h1>
-    <!-- Need to create and properly wire categories-->
+    <a href="/home/category/new">Add Category</a>
     <% if (locals.rows) { %>
         <% rows.forEach(data => { %>
             <a href="<%= `/home?category=${data?.category}` %>" ><%= data?.category %></a>    

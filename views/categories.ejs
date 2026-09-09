@@ -13,5 +13,7 @@
             <a href="<%= `/home?category=${data?.category}` %>" ><%= data?.category %></a>    
         <% }) %>
     <% }; %>
+    <a href="/home?category=null">Uncategorized</a>
+    <%- include("partials/deleteForm") %>
 </body>
 </html>

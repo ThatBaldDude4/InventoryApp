@@ -35,8 +35,6 @@ async function dbMaps() {
     };
 };
 
-// function is very similar to seedDatabase
-// might refactor functions to avoid duplication
 async function normalizeItems(items) {
     const {brandsMap, categoriesMap, disc_typeMap} = await dbMaps();
 

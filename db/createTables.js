@@ -39,7 +39,7 @@ const ITEMS_SQL = `
         item VARCHAR(255),
         brand_id INTEGER REFERENCES brands(id),
         disc_type_id INTEGER REFERENCES disc_type(id),
-        category_id INTEGER REFERENCES categories(id),
+        category_id INTEGER REFERENCES categories(id) ON DELETE SET NULL,
         quantity INTEGER,
         price NUMERIC(10, 2),
         description VARCHAR(255)

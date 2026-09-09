@@ -1,15 +1,28 @@
 import pool from "./pool.js";
 
 async function getItemsFromCategory(category) {
-    const SQL = `
+    if (category === "null"){category = null};
+    if (category) {
+        let SQL = `
         SELECT * FROM items AS i
         WHERE i.category_id IN (
             SELECT c.id FROM categories AS c
             WHERE c.category = $1
         );
-    `
-    const { rows } = await pool.query(SQL, [category]);
-    return rows;
+    `;
+        let { rows } = await pool.query(SQL, [category]);
+        return rows;
+    }
+
+    if (category === null) {
+        let SQL = `
+            SELECT * FROM items AS i
+            WHERE i.category_id IS NULL;
+            
+        `;
+        let { rows } = await pool.query(SQL);
+        return rows;
+    }
 }
 
 async function getItemFromId(id) {
@@ -73,6 +86,10 @@ async function insertCategory(category) {
     return rows[0].id;
 }
 
+async function deleteCategory(category) {
+    await pool.query('DELETE FROM categories WHERE category = $1', [category]);
+}
+
 async function insertItem(item) {
     const SQL = `
         INSERT INTO items (item, brand_id, disc_type_id, category_id, quantity, price, description)
@@ -102,5 +119,6 @@ export {
     getAllDiscTypes,
     insertDiscType,
     getItemFromId,
-    updateItem
+    updateItem,
+    deleteCategory
 }

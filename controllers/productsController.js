@@ -1,7 +1,14 @@
-import { getItemFromId, updateItem, insertItem } from "../db/queries.js";
+import { getItemFromId, updateItem, insertItem, deleteItem } from "../db/queries.js";
 import { body, matchedData, validationResult } from "express-validator";
 import { normalizeItems } from "../db/normalizeItemForDb.js";
 
+
+try {
+    process.loadEnvFile();
+}catch {
+    // no env file
+}
+const {adminPassword} = process.env.adminPassword;
 
 const lengthErr = "must be between 1 and 255 characters.";
 const requiredError = "is required";
@@ -29,6 +36,12 @@ const validateItem = [
         .withMessage(`Price ${priceError}`),
     body("disc_type")
         .optional()
+]
+
+const itemValidation = [
+    body("password")
+        .equals(adminPassword)
+        .withMessage("Incorrect Password")
 ]
 
 const getProductController = async (req, res) => {
@@ -105,10 +118,34 @@ const postNewProduct = [
     }
 ]
 
+const postDeleteProductController = [
+    itemValidation,
+    async (req, res) => {
+        try {
+            // const {password} = matchedData(req);
+            // console.log(password, "password")
+            const id = req.params?.id;
+            const password = req.body?.password;
+            console.log(id, "id")
+            if (!password || !id) {
+                console.log("No password/id for item");
+                res.redirect(req.get("Referrer") || "/");
+                return;
+            }
+            await deleteItem(id);
+            res.redirect(req.get("Referrer") || "/");
+        }catch(error) {
+            console.error("item deletion error occurred in async function", error)
+        }
+    }
+]
+
+
 export {
     getProductController,
     getProductFormController,
     postProductController,
     getNewProductController,
-    postNewProduct
+    postNewProduct,
+    postDeleteProductController
 }

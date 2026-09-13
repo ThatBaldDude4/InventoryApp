@@ -1,0 +1,43 @@
+:root {
+    --secondary-bg-color: rgb(152, 152, 152);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-container {
+    border: 1px solid black;
+    padding: 15px;
+    transform: skewX(-15deg);
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.skew-container {
+    transform: skewX(15deg);
+}
+
+a {
+    text-decoration: none;
+}
+
+.button-style {
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: var(--secondary-bg-color);
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#all-item-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 17px;
+}

@@ -4,7 +4,8 @@ import {
     getProductFormController,
     postProductController,
     getNewProductController, 
-    postNewProduct
+    postNewProduct,
+    postDeleteProductController
 } from "../controllers/productsController.js";
 const productsRouter = Router();
 
@@ -21,5 +22,7 @@ productsRouter.get("/:id", getProductController);
 productsRouter.get("/:id/edit", getProductFormController);
 
 productsRouter.post("/:id/edit", postProductController);
+
+productsRouter.post("/:id/delete", postDeleteProductController);
 
 export default productsRouter;

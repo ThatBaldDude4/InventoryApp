@@ -1,16 +1,22 @@
 import { deleteCategory, getAllCategories, getItemsFromCategory, insertCategory } from "../db/queries.js";
 import { body, matchedData, validationResult } from "express-validator";
-const password = "adminPassword"
+
+try {
+    process.loadEnvFile();
+}catch {
+    // no env file
+}
+const {adminPassword} = process.env.adminPassword;
 
 // form validation
 const validation = [
     body("password")
-        .equals(password)
+        .equals(adminPassword)
         .withMessage("Incorrect Password"),
     body("category")
         .isLength({min:1, max: 255})
         .withMessage("Must choose category"),
-]
+];
 
 // These are controllers for processing requests for index routes
 
@@ -66,7 +72,7 @@ const postDeleteCategoryController = [
         console.error("Error happened in postdeleteCategory you better check it out :)", error)
     }
 }
-]
+];
 
 export {
     getCategoriesController,

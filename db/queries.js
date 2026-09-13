@@ -64,7 +64,11 @@ async function updateItem({id, brand, disc_type, category, item, quantity, price
         WHERE i.id = $1;
     `;
     await pool.query(SQL, [id, item, brand, disc_type, category, quantity, price, description]);
-}
+};
+
+async function deleteItem(id) {
+    await pool.query('DELETE FROM items WHERE id = $1', [id]);
+};
 
 async function getAllBrands() {
     const { rows } = await pool.query('SELECT * FROM brands;');
@@ -120,5 +124,6 @@ export {
     insertDiscType,
     getItemFromId,
     updateItem,
-    deleteCategory
+    deleteCategory,
+    deleteItem
 }

@@ -22,6 +22,13 @@ app.use("/", indexRouter);
 app.use("/products", productsRouter);
 
 
+// error handling
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render("error");
+});
+
+
 app.listen(PORT, "0.0.0.0", (err) => {
     if (err) {
         throw err;

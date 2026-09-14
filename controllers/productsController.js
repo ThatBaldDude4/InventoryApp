@@ -45,24 +45,16 @@ const itemValidation = [
 ]
 
 const getProductController = async (req, res) => {
-    try {
-        const id = Number(req.params?.id);
-        const rows = await getItemFromId(id)
-        res.render("itemPage", {rows})
-    }catch (err) {
-        console.error(err);
-    }
+    const id = Number(req.params?.id);
+    const rows = await getItemFromId(id)
+    res.render("itemPage", {rows})
 }
 
 const getProductFormController = async (req, res) => {
-    try {
-        const id = Number(req.params?.id);
-        const rows = await getItemFromId(id);
-        // form should take single item
-        res.render("itemForm", {rows: rows[0]});
-    }catch(err) {
-        
-    }
+    const id = Number(req.params?.id);
+    const rows = await getItemFromId(id);
+    // form should take single item
+    res.render("itemForm", {rows: rows[0]});
 }
 
 const postProductController = [
@@ -70,21 +62,18 @@ const postProductController = [
     async (req, res) => {
         const errors = validationResult(req);
         const id = req.params.id;
+
         if (!errors.isEmpty()) {
             return res.status(400).render("itemForm", {
                 errors: errors.array(),
                 rows: {...req.body, id},
             })
         }
-        try {
-            
-            const {item, description, brand, category, quantity, price, disc_type} = matchedData(req);
-            const [nItem] = await normalizeItems([{id, item, description, brand, category, quantity, price, disc_type}]);
-            await updateItem(nItem);
-            res.redirect(`/products/${id}`)
-        }catch(err) {
-            console.error(err);
-        }
+        
+        const {item, description, brand, category, quantity, price, disc_type} = matchedData(req);
+        const [nItem] = await normalizeItems([{id, item, description, brand, category, quantity, price, disc_type}]);
+        await updateItem(nItem);
+        res.redirect(`/products/${id}`)
     }
 ];
 
@@ -103,40 +92,29 @@ const postNewProduct = [
             });
         };
 
-        try {
-            const {item, description, brand, category, quantity, price, disc_type} = matchedData(req);
-            const [nItem] = await normalizeItems([{item, description, brand, category, quantity, price, disc_type}]);
-            // insert item
-            // grab item id
-            const newItemId = await insertItem(nItem);
-            console.log(newItemId)
-            res.redirect(`/products/${newItemId}`)
-            
-        }catch (err) {
-            console.error(err);
-        }
+        const {item, description, brand, category, quantity, price, disc_type} = matchedData(req);
+        const [nItem] = await normalizeItems([{item, description, brand, category, quantity, price, disc_type}]);
+        // insert item
+        // grab item id
+        const newItemId = await insertItem(nItem);
+        console.log(newItemId)
+        res.redirect(`/products/${newItemId}`)
     }
 ]
 
 const postDeleteProductController = [
     itemValidation,
     async (req, res) => {
-        try {
-            // const {password} = matchedData(req);
-            // console.log(password, "password")
-            const id = req.params?.id;
-            const password = req.body?.password;
-            console.log(id, "id")
-            if (!password || !id) {
-                console.log("No password/id for item");
-                res.redirect(req.get("Referrer") || "/");
-                return;
-            }
-            await deleteItem(id);
+        const id = req.params?.id;
+        const password = req.body?.password;
+        console.log(id, "id")
+        if (!password || !id) {
+            console.log("No password/id for item");
             res.redirect(req.get("Referrer") || "/");
-        }catch(error) {
-            console.error("item deletion error occurred in async function", error)
+            return;
         }
+        await deleteItem(id);
+        res.redirect(req.get("Referrer") || "/");
     }
 ]
 

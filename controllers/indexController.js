@@ -21,24 +21,15 @@ const validation = [
 // These are controllers for processing requests for index routes
 
 const getCategoriesController = async (req, res) => {
-    try {
-        const rows = await getAllCategories();
-        res.render("categories", {rows});
-    } catch (err) {
-        console.error(err);
-        // could res.render(error ejs page)
-    }
+    const rows = await getAllCategories();
+    res.render("categories", {rows});
 };
 
 const getHomeController = async (req, res) => {
-    try {
-        const category = req.query?.category;
-        console.log(category);
-        const rows = await getItemsFromCategory(category);
-        res.render("home", {rows, category})
-    }catch (err) {
-        console.error(err);
-    }
+    const category = req.query?.category;
+    console.log(category);
+    const rows = await getItemsFromCategory(category);
+    res.render("home", {rows, category})
 }
 
 const getAddCategoryController = (req, res) => {
@@ -46,31 +37,23 @@ const getAddCategoryController = (req, res) => {
 }
 
 const postAddCategoryController = async (req, res) => {
-    try {
-        let category = req.body?.category;
-        if (category) {
-            await insertCategory(category);
-        }
-        res.redirect("/")
-    }catch(err) {
-        console.error(err);
+    let category = req.body?.category;
+    if (category) {
+        await insertCategory(category);
     }
+    res.redirect("/")
 }
 
 const postDeleteCategoryController = [
     validation,
     async (req, res) => {
-    try {
-        const {password, category} = matchedData(req);
-        if (!password || !category) {
-            res.redirect("/");
-            return;
-        };
-        await deleteCategory(category);
+    const {password, category} = matchedData(req);
+    if (!password || !category) {
         res.redirect("/");
-    }catch(error) {
-        console.error("Error happened in postdeleteCategory you better check it out :)", error)
-    }
+        return;
+    };
+    await deleteCategory(category);
+    res.redirect("/");
 }
 ];
 

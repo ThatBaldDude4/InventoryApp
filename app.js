@@ -21,6 +21,10 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use("/", indexRouter);
 app.use("/products", productsRouter);
 
+// catch all router
+app.all(/.*/, (req, res, next) => {
+    res.status(500).render("error");
+})
 
 // error handling
 app.use((err, req, res, next) => {

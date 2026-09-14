@@ -97,7 +97,6 @@ const postNewProduct = [
         // insert item
         // grab item id
         const newItemId = await insertItem(nItem);
-        console.log(newItemId)
         res.redirect(`/products/${newItemId}`)
     }
 ]
@@ -107,9 +106,7 @@ const postDeleteProductController = [
     async (req, res) => {
         const id = req.params?.id;
         const password = req.body?.password;
-        console.log(id, "id")
         if (!password || !id) {
-            console.log("No password/id for item");
             res.redirect(req.get("Referrer") || "/");
             return;
         }

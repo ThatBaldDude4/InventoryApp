@@ -1,6 +1,6 @@
-<form method="POST" action="/home/category/delete">
+<form method="POST" action="/home/category/edit">
     <% if (locals.rows) { %>
-        <h2>Delete Category</h2>
+        <h2>Edit Category</h2>
         <select name="category">
             <option value="">Select Category</option>
         <% rows.forEach(data => { %>
@@ -8,8 +8,12 @@
         <% }) %>
         </select>
         <label>
+            New Name:
+            <input name="updated_category_input">
+        </label>
+        <label>
             Password:
-            <input name="password" id="password">
+            <input name="password" class="password">
         </label>
         <button type="submit">Submit</button>
     <% }; %>

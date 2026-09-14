@@ -94,6 +94,10 @@ async function deleteCategory(category) {
     await pool.query('DELETE FROM categories WHERE category = $1', [category]);
 }
 
+async function editCategory(category, newCategory) {
+    await pool.query('UPDATE categories SET category = $1 WHERE category = $2', [newCategory, category]);
+}
+
 async function insertItem(item) {
     const SQL = `
         INSERT INTO items (item, brand_id, disc_type_id, category_id, quantity, price, description)
@@ -125,5 +129,6 @@ export {
     getItemFromId,
     updateItem,
     deleteCategory,
-    deleteItem
+    deleteItem,
+    editCategory
 }

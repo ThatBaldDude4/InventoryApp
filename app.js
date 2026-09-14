@@ -23,13 +23,13 @@ app.use("/products", productsRouter);
 
 // catch all router
 app.all(/.*/, (req, res, next) => {
-    res.status(500).render("error");
+    res.status(404).render("error", {error: "404 page not found"});
 })
 
 // error handling
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).render("error");
+    res.status(500).render("error", {error: err});
 });
 
 

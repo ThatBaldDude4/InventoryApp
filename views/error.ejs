@@ -6,6 +6,8 @@
     <title>Error Page</title>
 </head>
 <body>
-    <h1>Oppsie doopsie something went wrong (WHAT DID YOU DO!!)</h1>
+    <% if (locals.error) { %>
+        <h1><%= error %></h1>    
+    <% }; %>
 </body>
 </html>

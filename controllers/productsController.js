@@ -8,7 +8,7 @@ try {
 }catch {
     // no env file
 }
-const {adminPassword} = process.env.adminPassword;
+const adminPassword = process.env.adminPassword;
 
 const lengthErr = "must be between 1 and 255 characters.";
 const requiredError = "is required";

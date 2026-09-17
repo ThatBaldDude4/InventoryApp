@@ -1,6 +1,13 @@
 <form method="POST" action="/home/category/delete">
     <% if (locals.rows) { %>
         <h2>Delete Category</h2>
+        <% if (locals.errors?.length > 0 && locals.form === "delete") { %>
+            <ul>
+                <% errors.forEach(data => { %>
+                <li><%= data %></li>
+                <% }); %>
+            </ul>
+        <% }; %>
         <select name="category">
             <option value="">Select Category</option>
         <% rows.forEach(data => { %>

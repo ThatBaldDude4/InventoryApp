@@ -1,6 +1,13 @@
 <form method="POST" action="/home/category/edit">
     <% if (locals.rows) { %>
         <h2>Edit Category</h2>
+        <% if (locals.errors && locals.form === "edit") { %>
+            <ul>
+                <% errors.forEach(data => { %>
+                <li><%= data %></li>
+                <% }); %>
+            </ul>
+        <% }; %>
         <select name="category">
             <option value="">Select Category</option>
         <% rows.forEach(data => { %>

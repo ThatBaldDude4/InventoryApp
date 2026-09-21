@@ -6,10 +6,15 @@
     <title>Category Page</title>
 </head>
 <body>
-    <form method="POST" action="">
+    <form method="POST" action="/home/category/new">
         <h2>Add Category</h2>
         <label>
-            <input name="category" type="text" id="category" value="<%= rows?.category || ''">
+            <% if (locals?.error) { %>
+                <ul>
+                    <li><%= error %></li>
+                </ul>    
+            <% }; %>
+            <input name="category" type="text" id="category" value="<%= locals?.rows?.category || '' %>">
         </label>
         <button type="submit">Add</button>
     </form>

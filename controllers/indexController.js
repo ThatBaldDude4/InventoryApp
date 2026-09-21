@@ -38,19 +38,27 @@ const getCategoriesController = async (req, res) => {
 };
 
 const getHomeController = async (req, res) => {
+    console.log("1")
     const category = req.query?.category;
     const rows = await getItemsFromCategory(category);
     res.render("home", {rows, category})
 }
 
 const getAddCategoryController = (req, res) => {
+    console.log("2")
     res.render("categoryForm")
 }
 
 const postAddCategoryController = async (req, res) => {
     let category = req.body?.category;
     if (category) {
-        await insertCategory(category);
+        try {
+            await insertCategory(category);
+        }catch(error) {
+            res.render("categoryForm", {rows: {category}, error: "Category already exists"})
+            return;
+        }
+        
     }
     res.redirect("/")
 }
@@ -58,6 +66,7 @@ const postAddCategoryController = async (req, res) => {
 const postDeleteCategoryController = [
     validation,
     async (req, res) => {
+        console.log("4")
         const errors = validationResult(req);
         const queryString = errorsToQueryString(errors.array(), "delete");
         const {category} = matchedData(req);
@@ -74,15 +83,25 @@ const postDeleteCategoryController = [
 const postEditCategoryController = [
     validation,
     editValidation,
-    async (req, res) => {
+    async (req, res, next) => {
+        const form = "edit";
         const errors = validationResult(req);
-        const queryString = errorsToQueryString(errors.array(), "edit");
+        const queryString = errorsToQueryString(errors.array(), form);
         const {category, updated_category_input} = matchedData(req);
         if (!errors.isEmpty()) {
-            res.status(400).redirect(queryString);
+            res.redirect(queryString);
             return;
         };
-        await editCategory(category, updated_category_input)
+        try {
+            await editCategory(category, updated_category_input)
+        }catch(error) {
+            if (error.code === "23505") {
+                const qryString = "/?error=Category%20name%20already%20used" + "&form=" + form;
+                res.redirect(qryString);
+                return;
+            }
+            return next(error);
+        }
         res.redirect("/");
     }
 ]

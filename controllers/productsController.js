@@ -21,7 +21,9 @@ const validateItem = [
         .escape()
         .withMessage(`Item ${lengthErr}`),
     body("description")
-        .optional(),
+        .isLength({min:0, max: 255})
+        .optional()
+        .withMessage("Max size reached"),
     body("brand")
         .notEmpty()
         .withMessage(`Brand ${requiredError}`),
@@ -29,10 +31,10 @@ const validateItem = [
         .notEmpty()
         .withMessage(`Category ${requiredError}`),
     body("quantity")
-        .isInt()
+        .isInt({min: 0})
         .withMessage(`Quantity ${numberError}`),
     body("price")
-        .isFloat()
+        .isFloat({min: 0})
         .withMessage(`Price ${priceError}`),
     body("disc_type")
         .optional()
@@ -59,6 +61,7 @@ const getProductFormController = async (req, res) => {
 
 const postProductController = [
     validateItem,
+    itemValidation,
     async (req, res) => {
         const errors = validationResult(req);
         const id = req.params.id;
@@ -83,12 +86,14 @@ const getNewProductController = (req, res) => {
 
 const postNewProduct = [
     validateItem,
+    itemValidation,
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).render("itemForm", {
                 errors: errors.array(),
                 rows: {...req.body},
+                category: req.query?.category,
             });
         };
 
@@ -105,7 +110,7 @@ const postDeleteProductController = [
     itemValidation,
     async (req, res) => {
         const id = req.params?.id;
-        const password = req.body?.password;
+        const {password} = matchedData(req);
         if (!password || !id) {
             res.redirect(req.get("Referrer") || "/");
             return;

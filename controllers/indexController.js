@@ -24,6 +24,15 @@ const editValidation = [
         .withMessage("New name must be between 1 - 255 characters") 
 ]
 
+const newCategoryValidation = [
+    body("password")
+        .equals(adminPassword)
+        .withMessage("Incorrect Password"),
+    body("newCategory")
+        .isLength({min:1, max:255})
+        .withMessage("Category name must be between 1 and 255 characters long")
+]
+
 // These are controllers for processing requests for index routes
 
 const getCategoriesController = async (req, res) => {
@@ -49,24 +58,38 @@ const getAddCategoryController = (req, res) => {
     res.render("categoryForm")
 }
 
-const postAddCategoryController = async (req, res) => {
-    let category = req.body?.category;
-    if (category) {
+
+const postAddCategoryController = [
+    newCategoryValidation,
+    
+    async (req, res, next) => {
+        // validate user input
+        const errors = validationResult(req);
+        let category = req.body?.newCategory;
+        if (!errors.isEmpty()) {
+            res.render("categoryForm", {rows: {category}, errors: errors.array()})
+            return;
+        }
+
+        // insert new category if validation is passed
         try {
             await insertCategory(category);
         }catch(error) {
-            res.render("categoryForm", {rows: {category}, error: "Category already exists"})
-            return;
+            if (error.code === "23505") {
+                res.render("categoryForm", {rows: {category}, errors: [{msg: "Category already exists"}]})
+                return;
+            }
+            return next(error);
         }
-        
+
+
+        res.redirect("/")
     }
-    res.redirect("/")
-}
+];
 
 const postDeleteCategoryController = [
     validation,
     async (req, res) => {
-        console.log("4")
         const errors = validationResult(req);
         const queryString = errorsToQueryString(errors.array(), "delete");
         const {category} = matchedData(req);

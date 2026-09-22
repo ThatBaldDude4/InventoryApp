@@ -6,15 +6,23 @@
     <title>Category Page</title>
 </head>
 <body>
+    <a href="/">HOME</a>
     <form method="POST" action="/home/category/new">
         <h2>Add Category</h2>
+        <% if (locals?.errors) { %>
+            <ul>
+                <% errors.forEach(err => { %>
+                    <li><%= err.msg %></li>    
+                <% }); %>
+            </ul>    
+        <% }; %>
         <label>
-            <% if (locals?.error) { %>
-                <ul>
-                    <li><%= error %></li>
-                </ul>    
-            <% }; %>
-            <input name="category" type="text" id="category" value="<%= locals?.rows?.category || '' %>">
+            New Category:
+            <input name="newCategory" type="text" id="category" value="<%= locals?.rows?.category || '' %>">
+        </label>
+        <label>
+            Admin Password:
+            <input name="password">
         </label>
         <button type="submit">Add</button>
     </form>

@@ -6,8 +6,8 @@
     <title>Item Form</title>
 </head>
 <body>
-    <form method="POST" action="<%= rows?.id ? `/products/${rows.id}/edit` : '/products/new' %>">
-        <h1>Edit Item Form</h1>
+    <form method="POST" action="<%= rows?.id ? `/products/${rows.id}/edit` : `/products/new?category=${category}` %>">
+        <h1>Item Form</h1>
         <a href="<%= rows?.id ? `/products/${rows.id}` : `/home?category=${category}` %>">Back</a>
         
         <% if (locals.errors) { %>
@@ -44,6 +44,10 @@
         <label>
             Disc Type:
             <input name="disc_type" id="disc_type-input" value="<%= rows?.disc_type || ''%>">
+        </label>
+        <label>
+            Admin Password:
+            <input name="password">
         </label>
         <button type="submit">Submit</button>
     </form>

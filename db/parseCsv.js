@@ -22,9 +22,9 @@ async function processCsv() {
 }
 
 function normalizeRow(row) {
-    row.brand = row.brand.replace(/\s+/g, '').toLowerCase();
-    row.disc_type = row.disc_type?.replace(/\s+/g, '').toLowerCase();
-    row.category = row.category.replace(/\s+/g, '').slice(0, 200).toLowerCase();
+    row.brand = row.brand.replace(/^\s+|\s+$/g, "");
+    row.disc_type = row.disc_type?.replace(/^\s+|\s+$/g, "");
+    row.category = row.category.replace(/^\s+|\s+$/g, "").slice(0, 255);
     return row;
 }
 

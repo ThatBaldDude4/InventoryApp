@@ -1,5 +1,6 @@
 import { deleteCategory, getAllCategories, getItemsFromCategory, insertCategory, editCategory } from "../db/queries.js";
 import { body, matchedData, validationResult } from "express-validator";
+import { normalizeCategory } from "../db/normalizeItemForDb.js";
 
 try {
     process.loadEnvFile();
@@ -73,7 +74,8 @@ const postAddCategoryController = [
 
         // insert new category if validation is passed
         try {
-            await insertCategory(category);
+            let nCategory = normalizeCategory(category);
+            await insertCategory(nCategory);
         }catch(error) {
             if (error.code === "23505") {
                 res.render("categoryForm", {rows: {category}, errors: [{msg: "Category already exists"}]})

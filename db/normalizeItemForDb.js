@@ -78,6 +78,11 @@ async function normalizeItems(items) {
     return result
 }
 
+function normalizeCategory(cat) {
+    return cat.trim();
+}
+
 export {
-    normalizeItems
+    normalizeItems,
+    normalizeCategory
 }

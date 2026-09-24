@@ -3,6 +3,7 @@ import { insertItem } from "./queries.js";
 import { createTables } from "./createTables.js";
 import { deleteTables } from "./deleteTables.js";
 import { normalizeItems } from "./normalizeItemForDb.js";
+import pool from "./pool.js";
 
 
 // takes array of objects
@@ -24,8 +25,12 @@ async function seedData(dat) {
         console.log("seeding successful");
     }catch(error) {
         console.error("Seed Data Error:", error);
+    }finally {
+        // stops the pool connection
+        await pool.end();
+        console.timeEnd("Timer")
     }
-    console.timeEnd("Timer")
+    
 };
 
 const data = await processCsv();

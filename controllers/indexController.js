@@ -49,14 +49,13 @@ const getCategoriesController = async (req, res) => {
 
 const getHomeController = async (req, res) => {
     const category = req.query?.category;
-    const rows = await getItemsFromCategory(category);
-
-    if (rows.length === 0) {
+    if (category === undefined || category === "") {
         const error = new Error("Category not found");
         error.status = 404;
         throw error;
     }
 
+    const rows = await getItemsFromCategory(category);
     res.render("home", {rows, category})
 }
 

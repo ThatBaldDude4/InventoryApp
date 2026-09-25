@@ -48,6 +48,14 @@ const itemValidation = [
 
 const getProductController = async (req, res) => {
     const id = Number(req.params?.id);
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+        const error = new Error("Invalid product ID");
+        error.status = 400;
+        throw error;
+    }
+
+
     const rows = await getItemFromId(id);
 
     if (rows.length === 0) {
@@ -60,6 +68,13 @@ const getProductController = async (req, res) => {
 
 const getProductFormController = async (req, res) => {
     const id = Number(req.params?.id);
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+        const error = new Error("Invalid product ID");
+        error.status = 400;
+        throw error;
+    }
+
     const rows = await getItemFromId(id);
 
     if (rows.length === 0) {

@@ -48,14 +48,25 @@ const itemValidation = [
 
 const getProductController = async (req, res) => {
     const id = Number(req.params?.id);
-    const rows = await getItemFromId(id)
+    const rows = await getItemFromId(id);
+
+    if (rows.length === 0) {
+        const error = new Error("Item not found");
+        error.status = 404;
+        throw error;
+    }
     res.render("itemPage", {rows})
 }
 
 const getProductFormController = async (req, res) => {
     const id = Number(req.params?.id);
     const rows = await getItemFromId(id);
-    // form should take single item
+
+    if (rows.length === 0) {
+        const error = new Error("Item not found");
+        error.status = 404;
+        throw error;
+    }
     res.render("itemForm", {rows: rows[0]});
 }
 

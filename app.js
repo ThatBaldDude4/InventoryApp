@@ -29,7 +29,9 @@ app.all(/.*/, (req, res, next) => {
 // error handling
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).render("error", {error: err});
+
+    const status = err.status || 500;
+    res.status(status).render("error", {error: err});
 });
 
 

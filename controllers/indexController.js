@@ -48,14 +48,19 @@ const getCategoriesController = async (req, res) => {
 };
 
 const getHomeController = async (req, res) => {
-    console.log("1")
     const category = req.query?.category;
     const rows = await getItemsFromCategory(category);
+
+    if (rows.length === 0) {
+        const error = new Error("Category not found");
+        error.status = 404;
+        throw error;
+    }
+
     res.render("home", {rows, category})
 }
 
 const getAddCategoryController = (req, res) => {
-    console.log("2")
     res.render("categoryForm")
 }
 

@@ -23,6 +23,8 @@ async function getItemsFromCategory(category) {
         let { rows } = await pool.query(SQL);
         return rows;
     }
+
+    return [];
 }
 
 async function getItemFromId(id) {

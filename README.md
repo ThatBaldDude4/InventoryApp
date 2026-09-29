@@ -1,9 +1,14 @@
-This project requires a postgresql database
+# Inventory App
+- This is a CRUD app built following the TOP curriculum
+- App is designed to showcase understanding of modern backend design
+- App follows the MVC design system
 
 ## Stack
 - Database: Postgresql
 - Backend: Node.js and Express
 - Frontend: HTML and CSS
+
+- Note Express Version 5.xx + required to run application
 
 ```mermaid
 flowchart TD
@@ -28,32 +33,11 @@ Products --> P6["POST /:id/delete"]
 
 ```
 
-flowchart LR
+## Setup
+To run locally you'll need to install and setup a postgresql database.
+Create a .env file following .env.sample for setup.
 
-Client --> Server
+If you already have a postgresql connection string you 
+can connect it to the app through MSG_URL environment variable.
 
-Server --> Root["/"]
-
-Root --> Index["/index"]
-Root --> Products["/products"]
-
-db folder is for setting up the database and making sure
-the database is as expected.
-
-pool is used to query said data based off the app's needs.
-
-see .env.sample to see expected .env setup
-
-App follows the MVC pattern
-
-Uses express 5.xx automatic error handling for controllers.
-
-flowchart TD
-
-App["Express App"]
-
-App --> Root["/"]
-App --> Products["/products"]
-App --> Categories["/categories"]
-
-Root --> Home["GET /"]
+Once .env file is setup run "npm run start" to run the server.

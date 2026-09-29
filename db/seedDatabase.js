@@ -3,6 +3,7 @@ import { insertItem } from "./queries.js";
 import { createTables } from "./createTables.js";
 import { deleteTables } from "./deleteTables.js";
 import { normalizeItems } from "./normalizeItemForDb.js";
+import {fileURLToPath} from 'url';
 import pool from "./pool.js";
 
 
@@ -25,18 +26,18 @@ async function seedData(dat) {
         console.log("seeding successful");
     }catch(error) {
         console.error("Seed Data Error:", error);
+    }
+};
+
+export { seedData };
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    try {
+        const data = await processCsv();
+        await seedData(data);
     }finally {
-        // stops the pool connection
         await pool.end();
         console.timeEnd("Timer")
     }
     
-};
-
-const data = await processCsv();
-seedData(data);
-
-
-export {
-    seedData
 }
